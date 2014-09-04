@@ -114,6 +114,7 @@ public class MainController implements Initializable, Observer {
     
     private Conexao appConn;
     //private Conexao chatConn;
+    private Rmi appRmiConn;
     
     private boolean isDialogPresent = false; //evitar excessao e que a app se feche inesperadamente ao fim de jogo
          
@@ -161,11 +162,16 @@ public class MainController implements Initializable, Observer {
     }
     
     public void startConnection(){
-        
+        /*
         this.game.setOtherPlayerName(this.appConn.startConn(this.game.getMyName()));
         this.playingWith.setText("Jogando com: "+this.game.getOtherPlayerName());
         this.game.setChallenger(this.appConn.isIsServer()); 
         this.game.setMyTurn(this.appConn.isIsServer());
+        */
+        this.appRmiConn = new Rmi();
+        this.appRmiConn.start();
+        this.game.setChallenger(this.appRmiConn.isIsServer()); 
+        this.game.setMyTurn(this.appRmiConn.isIsServer());
         
         if(this.game.isMyTurn())
         {

@@ -6,8 +6,11 @@
 
 package mastermind;
 
-import java.rmi.*;
 import java.net.MalformedURLException;
+import java.rmi.*;
+import java.rmi.registry.LocateRegistry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,7 +19,7 @@ import java.net.MalformedURLException;
 public class Rmi {
     private boolean isServer;
     private int port;
-    private String ip;
+    private final String ip;
     //private String message;
     private ItfHelper helper;
     private MainHelper mets;
@@ -44,24 +47,25 @@ public class Rmi {
         return isServer;
     }
     
-    public void start(String nome){
-        try {
-            this.helper = (ItfHelper)Naming.lookup("//"+this.ip+"/"+nome);
+    public void start(){
+       /* try {
+            this.helper = (ItfHelper)Naming.lookup("//"+this.ip+"/mastermindrmi");
             System.out.println("Objeto Localizado!");
-            this.isServer = false;
+            //this.isServer = false;
 	} catch(Exception e){
-            
+            */
             try {
-                
+                LocateRegistry.createRegistry(1099);
                 this.mets = new MainHelper();
-                Naming.rebind(nome,this.mets);
+                Naming.rebind("teste",this.mets);
                 System.out.println("Servidor Registrado!");
                 this.isServer = true;
                 
             } catch (RemoteException | MalformedURLException ex) {
                 System.out.println("fuuuuuuuu");
+            Logger.getLogger(Rmi.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+       // }
 		
     }
     
