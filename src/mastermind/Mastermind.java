@@ -6,12 +6,7 @@ Dependencias: ControlsFX.org
 4 - clique no botão "add JAR/Folder". 
 5 - selecione o arquivo. 
 6 - clique ok. 
-
-//Lista de frustraçoes que tive no deccorer do projeto:
-//*Mostrar um imputDialog Assim que a aplicaçao se inicia, pois gerava a excessao java.lang.reflect.InvocationTargetException
-//*Implementar o padrao de projetos observer na comunicaçao via sockect(classe conexao) e fazer o gerenciamento de pacotes da aplicaçao em JavaFx
-//4dias de pura frustraçao para resolver os 2 problemas a cima(em media 2 pra cada)
- */
+*/
 
 package mastermind;
 
