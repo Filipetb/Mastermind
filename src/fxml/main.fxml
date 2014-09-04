@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="800.0" snapToPixel="false" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mastermind.MainController">
+   <children>
+      <ImageView fitHeight="573.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@images/cenario.png" />
+         </image>
+      </ImageView>
+      <TextArea fx:id="chatTA" editable="false" layoutX="596.0" layoutY="32.0" opacity="0.7" prefHeight="508.0" prefWidth="201.0" wrapText="true" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="32.0" />
+      <TextField fx:id="chatTF" layoutX="596.0" layoutY="539.0" onKeyPressed="#sendTextToChat" opacity="0.8" prefHeight="26.0" prefWidth="201.0" promptText="Para chat digite aqui" />
+      <Label fx:id="playingWith" layoutX="600.0" layoutY="9.0" text="Jogando contra: " textFill="WHITE" />
+      <GridPane fx:id="myGrid1" alignment="BOTTOM_CENTER" layoutX="158.0" layoutY="513.0" onDragDropped="#gridSetOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="44.0" prefWidth="290.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="61.0" valignment="CENTER" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+      <ImageView fx:id="bilharY" fitHeight="44.0" fitWidth="46.0" layoutX="518.0" layoutY="482.0" onDragDetected="#bilharSetOnDragDetected" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/bilhar9.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bilharB" fitHeight="44.0" fitWidth="46.0" layoutX="518.0" layoutY="386.0" onDragDetected="#bilharSetOnDragDetected" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/bilhar10.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bilharR" fitHeight="44.0" fitWidth="46.0" layoutX="518.0" layoutY="291.0" onDragDetected="#bilharSetOnDragDetected" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/bilhar11.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bilharP" fitHeight="44.0" fitWidth="46.0" layoutX="518.0" layoutY="196.0" onDragDetected="#bilharSetOnDragDetected" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/bilhar12.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bilharG" fitHeight="44.0" fitWidth="46.0" layoutX="517.0" layoutY="100.0" onDragDetected="#bilharSetOnDragDetected" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/bilhar14.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bilharBw" fitHeight="44.0" fitWidth="46.0" layoutX="518.0" layoutY="6.0" onDragDetected="#bilharSetOnDragDetected" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/bilhar15.png" />
+         </image>
+      </ImageView>
+      <GridPane fx:id="myGrid2" alignment="BOTTOM_CENTER" layoutX="158.0" layoutY="462.0" onDragDropped="#gridSetOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="44.0" prefWidth="290.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="61.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="myGrid3" alignment="BOTTOM_CENTER" layoutX="158.0" layoutY="411.0" onDragDropped="#gridSetOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="44.0" prefWidth="290.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="61.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="myGrid4" alignment="BOTTOM_CENTER" layoutX="158.0" layoutY="360.0" onDragDropped="#gridSetOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="44.0" prefWidth="290.0" style="-: #DDD;">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="61.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="myGrid5" alignment="BOTTOM_CENTER" layoutX="158.0" layoutY="309.0" onDragDropped="#gridSetOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="44.0" prefWidth="290.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="61.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="myGrid6" alignment="BOTTOM_CENTER" layoutX="158.0" layoutY="258.0" onDragDropped="#gridSetOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="44.0" prefWidth="290.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="61.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="myGrid7" alignment="BOTTOM_CENTER" layoutX="158.0" layoutY="207.0" onDragDropped="#gridSetOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="44.0" prefWidth="290.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="61.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="myGrid8" alignment="BOTTOM_CENTER" layoutX="158.0" layoutY="156.0" onDragDropped="#gridSetOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="44.0" prefWidth="290.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="61.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="myGrid9" alignment="BOTTOM_CENTER" layoutX="158.0" layoutY="105.0" onDragDropped="#gridSetOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="44.0" prefWidth="290.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="61.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="myGrid10" alignment="BOTTOM_CENTER" layoutX="158.0" layoutY="54.0" onDragDropped="#gridSetOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="44.0" prefWidth="290.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="61.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="myGridX" alignment="BOTTOM_CENTER" layoutX="158.0" layoutY="4.0" onDragDropped="#gridSetOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="38.0" prefWidth="290.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" prefWidth="72.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="61.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <ImageView fx:id="btnEnviar" fitHeight="46.0" fitWidth="119.0" layoutX="6.0" layoutY="3.0" onMouseClicked="#enviarOnMouseClicked" onMouseEntered="#enviarOnMouseEntered" onMouseExited="#enviarOnMouseExited" onMousePressed="#enviarOnMousePressed" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/enviarBtn.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="pinoP" fitHeight="18.0" fitWidth="21.0" layoutX="529.0" layoutY="512.0" onDragDetected="#bilharSetOnDragDetected" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@images/pinoP2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="pinoB" fitHeight="18.0" fitWidth="21.0" layoutX="529.0" layoutY="416.0" onDragDetected="#bilharSetOnDragDetected" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@images/pinoB2.png" />
+         </image>
+      </ImageView>
+      <GridPane fx:id="pinoGrid1" layoutX="6.0" layoutY="540.0" onDragDropped="#pinoOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="20.0" prefWidth="110.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+        </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="pinoGrid2" layoutX="6.0" layoutY="491.0" onDragDropped="#pinoOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="20.0" prefWidth="110.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="pinoGrid3" layoutX="6.0" layoutY="439.0" onDragDropped="#pinoOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="20.0" prefWidth="110.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="pinoGrid4" layoutX="6.0" layoutY="389.0" onDragDropped="#pinoOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="20.0" prefWidth="110.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="pinoGrid5" layoutX="6.0" layoutY="338.0" onDragDropped="#pinoOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="20.0" prefWidth="110.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="pinoGrid6" layoutX="6.0" layoutY="286.0" onDragDropped="#pinoOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="20.0" prefWidth="110.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="pinoGrid7" layoutX="6.0" layoutY="233.0" onDragDropped="#pinoOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="20.0" prefWidth="110.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="pinoGrid8" layoutX="6.0" layoutY="181.0" onDragDropped="#pinoOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="20.0" prefWidth="110.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="pinoGrid9" layoutX="6.0" layoutY="130.0" onDragDropped="#pinoOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="20.0" prefWidth="110.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <GridPane fx:id="pinoGrid10" layoutX="6.0" layoutY="79.0" onDragDropped="#pinoOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="20.0" prefWidth="110.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+      <ImageView fx:id="suaVez" fitHeight="27.0" fitWidth="108.0" layoutX="485.0" layoutY="542.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/suaVez.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
