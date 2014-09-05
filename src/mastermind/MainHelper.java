@@ -19,12 +19,4 @@ public class MainHelper extends UnicastRemoteObject implements ItfHelper {
         super();
         System.out.println("Servidor criado!");
     }
-    
-    @Override
-    public String inverter(String msg) throws RemoteException {
-        StringBuffer strbuf = new StringBuffer(msg);
-        System.out.println("Recebido: "+msg);
-        String retorno = (strbuf.reverse()).toString();
-        return retorno;
-    }
 }

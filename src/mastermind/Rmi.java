@@ -48,24 +48,27 @@ public class Rmi {
     }
     
     public void start(){
-       /* try {
+        try {
             this.helper = (ItfHelper)Naming.lookup("//"+this.ip+"/mastermindrmi");
             System.out.println("Objeto Localizado!");
             //this.isServer = false;
+            this.mets = new MainHelper();
+            Naming.rebind("//"+this.ip+"/mastermindrmi", this.mets);
+            System.out.println("Nome registrado - cliente");
 	} catch(Exception e){
-            */
+            
             try {
                 LocateRegistry.createRegistry(1099);
                 this.mets = new MainHelper();
-                Naming.rebind("teste",this.mets);
+                Naming.rebind("mastermindrmi",this.mets);
                 System.out.println("Servidor Registrado!");
                 this.isServer = true;
-                
+                //servidor precisa dar um lookup qnd o cliente registrar o nome
             } catch (RemoteException | MalformedURLException ex) {
                 System.out.println("fuuuuuuuu");
             Logger.getLogger(Rmi.class.getName()).log(Level.SEVERE, null, ex);
             }
-       // }
+        }
 		
     }
     

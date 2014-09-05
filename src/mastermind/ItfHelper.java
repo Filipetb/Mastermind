@@ -13,5 +13,5 @@ import java.rmi.RemoteException;
  * @author filipe_bvr
  */
 public interface ItfHelper  extends Remote{
-    String inverter(String msg) throws RemoteException;
+    
 }
