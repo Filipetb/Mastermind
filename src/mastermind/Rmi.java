@@ -20,10 +20,14 @@ public class Rmi {
     private boolean isServer;
     private int port;
     private final String ip;
+    
     private ItfHelper helper;
     private MainHelper mets;
+    
     private ItfChatHelper chatHelper;
-    private ChatHelper chatMets;
+    public ChatHelper chatMets;
+    
+    private MainModel refToGame;
     
     
     public Rmi(){
@@ -38,27 +42,37 @@ public class Rmi {
         this.isServer = false;
     }
     
-    public Rmi(String ip, int porta){
+    public Rmi(String ip, MainModel ref) throws RemoteException{
+        //this.port = 1270;
+        this.ip = ip;
+        this.isServer = false;
+        this.refToGame = ref;
+        this.mets = new MainHelper();
+        this.chatMets = new ChatHelper(ref.getMyName());
+    }
+    
+    /*public Rmi(String ip, int porta){
         //this.port = porta;
         this.ip = ip;
         this.isServer = false;
-    }
+    }*/
     
     public boolean isIsServer() {
         return isServer;
     }
     
-    public void start(){
+    public String start(){
         try {
             this.helper = (ItfHelper)Naming.lookup("//"+this.ip+"/mastermind_rmi");
             this.chatHelper = (ItfChatHelper)Naming.lookup("//"+this.ip+"/mastermind_rmi_chat");
             System.out.println("Objetos Localizados!");
             
-            this.mets = new MainHelper();
-            this.chatMets = new ChatHelper();
+            
             Naming.rebind("//"+this.ip+"/mastermind_rmi_2", this.mets);
             Naming.rebind("//"+this.ip+"/mastermind_rmi_chat2", this.chatMets);
             System.out.println("Nomes registrados - cliente");
+            
+            return this.chatHelper.setPlayersName(this.refToGame.getMyName());
             
             //this.isServer = false;
 	} catch(Exception e){
@@ -66,8 +80,7 @@ public class Rmi {
             try {
                 LocateRegistry.createRegistry(1099);
                 
-                this.mets = new MainHelper();
-                this.chatMets = new ChatHelper();
+                
                 Naming.rebind("mastermind_rmi",this.mets);
                 Naming.rebind("mastermind_rmi_chat",this.chatMets);
                 System.out.println("Servidor Registrado!");
@@ -81,7 +94,7 @@ public class Rmi {
                 Logger.getLogger(Rmi.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-		
+	return null;	
     }
     
 }

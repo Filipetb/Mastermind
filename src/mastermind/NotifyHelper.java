@@ -6,14 +6,16 @@
 
 package mastermind;
 
-import java.rmi.Remote;
-import java.rmi.RemoteException;
+import java.util.Observable;
 
 /**
  *
  * @author Filipe
  */
-public interface ItfChatHelper  extends Remote {
-    String setPlayersName(String name) throws RemoteException;
-    String setMessage(String msg) throws RemoteException;
+public class NotifyHelper extends Observable {
+    
+    public void notifyTheController(){
+        setChanged();
+        notifyObservers();
+    }
 }

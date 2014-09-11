@@ -7,6 +7,7 @@
 package mastermind;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -129,7 +130,8 @@ public class MainController implements Initializable, Observer {
         //this.appConn = new Conexao(dataSplited[1],Integer.parseInt(dataSplited[2]));
         //this.appConn.addObserver(this);
         
-        this.appRmiConn = new Rmi(dataSplited[1]);
+        try{ this.appRmiConn = new Rmi(dataSplited[1], this.game); }catch(RemoteException e){}
+        this.appRmiConn.chatMets.teste.addObserver(this);
         
         //É necessario setar o tamanho do array para 4(evitar nullpointerException e IndexOutOfBouds)
         this.bilharImgs.add(new ImageView());
@@ -170,7 +172,14 @@ public class MainController implements Initializable, Observer {
         this.game.setChallenger(this.appConn.isIsServer()); 
         this.game.setMyTurn(this.appConn.isIsServer());
         */
-        this.appRmiConn.start();
+        String oPName = this.appRmiConn.start();
+        
+        if(oPName != null)
+        {
+            this.game.setOtherPlayerName(oPName);
+            this.playingWith.setText("Jogando com: "+this.game.getOtherPlayerName());
+        }
+         
         this.game.setChallenger(this.appRmiConn.isIsServer()); 
         this.game.setMyTurn(this.appRmiConn.isIsServer());
         
@@ -654,7 +663,9 @@ public class MainController implements Initializable, Observer {
     
     //@Override
     public void update(Observable o, Object arg) {
-        manageAllMsg(appConn.getMessage());
+        //manageAllMsg(appConn.getMessage());
+        System.out.println("DEU CERTO KRALHO!");
+        System.out.println(this.appRmiConn.chatMets.getOtherPlayerName());
     }
     
 }

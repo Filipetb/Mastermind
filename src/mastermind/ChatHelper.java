@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package mastermind;
 
@@ -15,8 +10,47 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class ChatHelper extends UnicastRemoteObject implements ItfChatHelper {
     
+    public NotifyHelper teste;
+    private String otherPlayerName;
+    private String myName;
+    private String message;
+     
+    public boolean hasMessage() {
+        return this.message != null;
+    }
+
+    public String getOtherPlayerName() {
+        return otherPlayerName;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+    
     public ChatHelper() throws RemoteException{
         super();
         System.out.println("Servidor Chat criado.");
+    }
+    public ChatHelper(String myname) throws RemoteException{
+        super();
+        this.teste = new NotifyHelper();
+        this.myName = myname;
+        this.message = null;
+        this.otherPlayerName = null;
+        System.out.println("Servidor Chat criado.");
+    }
+
+    @Override
+    public String setPlayersName(String name) throws RemoteException {
+        this.otherPlayerName = name;
+        this.teste.notifyTheController();
+        return this.myName;  
+    }
+
+    @Override
+    public String setMessage(String msg) throws RemoteException {
+        this.message = msg;
+        this.teste.notifyTheController();
+        return msg;
     }
 }
