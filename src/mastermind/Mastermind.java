@@ -107,7 +107,7 @@ public class Mastermind extends Application {
       
         
         
-        Scene scene = new Scene(root, 800, 573);
+        Scene scene = new Scene(root, 800-10, 573-10);
         
         primaryStage.setResizable(false);
         primaryStage.setTitle("MasterMind - Dev by Filipe Torres");
