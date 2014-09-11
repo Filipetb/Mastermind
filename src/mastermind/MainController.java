@@ -126,8 +126,10 @@ public class MainController implements Initializable, Observer {
     public void initData(String data) {
         String[] dataSplited = data.split(":");
         this.game = new MainModel(dataSplited[0]);
-        this.appConn = new Conexao(dataSplited[1],Integer.parseInt(dataSplited[2]));
-        this.appConn.addObserver(this);
+        //this.appConn = new Conexao(dataSplited[1],Integer.parseInt(dataSplited[2]));
+        //this.appConn.addObserver(this);
+        
+        this.appRmiConn = new Rmi(dataSplited[1]);
         
         //É necessario setar o tamanho do array para 4(evitar nullpointerException e IndexOutOfBouds)
         this.bilharImgs.add(new ImageView());
@@ -168,7 +170,6 @@ public class MainController implements Initializable, Observer {
         this.game.setChallenger(this.appConn.isIsServer()); 
         this.game.setMyTurn(this.appConn.isIsServer());
         */
-        this.appRmiConn = new Rmi();
         this.appRmiConn.start();
         this.game.setChallenger(this.appRmiConn.isIsServer()); 
         this.game.setMyTurn(this.appRmiConn.isIsServer());

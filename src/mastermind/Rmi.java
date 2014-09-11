@@ -20,9 +20,10 @@ public class Rmi {
     private boolean isServer;
     private int port;
     private final String ip;
-    //private String message;
     private ItfHelper helper;
     private MainHelper mets;
+    private ItfChatHelper chatHelper;
+    private ChatHelper chatMets;
     
     
     public Rmi(){
@@ -49,24 +50,35 @@ public class Rmi {
     
     public void start(){
         try {
-            this.helper = (ItfHelper)Naming.lookup("//"+this.ip+"/mastermindrmi");
-            System.out.println("Objeto Localizado!");
-            //this.isServer = false;
+            this.helper = (ItfHelper)Naming.lookup("//"+this.ip+"/mastermind_rmi");
+            this.chatHelper = (ItfChatHelper)Naming.lookup("//"+this.ip+"/mastermind_rmi_chat");
+            System.out.println("Objetos Localizados!");
+            
             this.mets = new MainHelper();
-            Naming.rebind("//"+this.ip+"/mastermindrmi", this.mets);
-            System.out.println("Nome registrado - cliente");
+            this.chatMets = new ChatHelper();
+            Naming.rebind("//"+this.ip+"/mastermind_rmi_2", this.mets);
+            Naming.rebind("//"+this.ip+"/mastermind_rmi_chat2", this.chatMets);
+            System.out.println("Nomes registrados - cliente");
+            
+            //this.isServer = false;
 	} catch(Exception e){
             
             try {
                 LocateRegistry.createRegistry(1099);
+                
                 this.mets = new MainHelper();
-                Naming.rebind("mastermindrmi",this.mets);
+                this.chatMets = new ChatHelper();
+                Naming.rebind("mastermind_rmi",this.mets);
+                Naming.rebind("mastermind_rmi_chat",this.chatMets);
                 System.out.println("Servidor Registrado!");
+                
                 this.isServer = true;
+                
                 //servidor precisa dar um lookup qnd o cliente registrar o nome
+                
             } catch (RemoteException | MalformedURLException ex) {
                 System.out.println("fuuuuuuuu");
-            Logger.getLogger(Rmi.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Rmi.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 		

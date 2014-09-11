@@ -57,7 +57,7 @@ public class Mastermind extends Application {
         }else{
             System.exit(0);
         }
-        
+        /*
         Optional<String> response3 = Dialogs.create().lightweight()
         .title("MasterMind - Dev by Filipe Torres")
         .masthead("Quase lá, so falta definir a porta\nAtençao: Ao apertar OK, a app irá travar até que se conecte a um jogador.")
@@ -70,7 +70,7 @@ public class Mastermind extends Application {
         }else{
             System.exit(0);
         }
-        
+        */
         return result;
     }
     
