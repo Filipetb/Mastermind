@@ -103,6 +103,8 @@ public class MainController implements Initializable, Observer {
     private GridPane pinoGrid10;
     @FXML
     private ImageView suaVez;
+    @FXML
+    private ImageView hammer;
     
     //Array que armazena as referencias das imgs dropped para serem removidas qnd necessarias
     private final List<ImageView> bilharImgs = new ArrayList<>();
@@ -194,7 +196,7 @@ public class MainController implements Initializable, Observer {
                     Dialogs.create().lightweight()
                         .title("MasterMind - Dev by Filipe Torres")
                         .masthead(null)
-                        .message("Você começa, defina a senha!")
+                        .message("Aguarde seu adversário se conectar, em seguida defina a senha!")
                         .showInformation();
                 }
             });
@@ -208,6 +210,7 @@ public class MainController implements Initializable, Observer {
             this.appRmiConn.helper.disconnect();
         } catch (RemoteException ex) {
         }
+        System.exit(0); //por algum motivo o processo continuava rodando sem form, entao forço a finalização aqui.
     }
 
     public void bilharSetOnDragDetected(MouseEvent event) {
@@ -363,6 +366,12 @@ public class MainController implements Initializable, Observer {
                 }else if(event.getGestureSource() == this.pinoP){
                     dropImg = new Image("fxml/images/pino2_dropped.png");
                     this.game.setCurResultPos(gridPosDrop, 2);
+                }else if(event.getGestureSource() == this.hammer){
+                    //curGrid.getChildren().remove(gridPosDrop);
+                    //this.game.setCurResultPos(gridPosDrop,0);
+                    this.game.setCurResult(new int[4]);
+                    curGrid.getChildren().clear();
+                    success = false;
                 }else{ success = false; }
                 
                 if(success == true)
@@ -435,7 +444,17 @@ public class MainController implements Initializable, Observer {
     
     public void enviarOnMouseClicked(MouseEvent event) {
         
-        System.out.println("CLICKED"); 
+        System.out.println("CLICKED");
+        
+        if(this.game.getOtherPlayerName() == null)
+        {
+           Dialogs.create().lightweight()
+                    .title("MasterMind - Dev by Filipe Torres")
+                    .masthead(null)
+                    .message("Aguarde seu adversário se conectar.")
+                    .showInformation();
+            return; 
+        }
         
         if(!this.game.isMyTurn())
         {
@@ -565,6 +584,7 @@ public class MainController implements Initializable, Observer {
             
             this.pinoB.setVisible(this.game.isMyTurn());
             this.pinoP.setVisible(this.game.isMyTurn());
+            this.hammer.setVisible(this.game.isMyTurn());
             //this.btnEnviar.setDisable(!this.game.isMyTurn()); 
             
         }else {
@@ -600,13 +620,24 @@ public class MainController implements Initializable, Observer {
                     timer.cancel();
             }
             
-        },0, 350);
+        },0, 500);
     }
     
     
     public void sendTextToChat(KeyEvent event) throws RemoteException{
         if(event.getCode() == KeyCode.ENTER)
         {
+            if(this.game.getOtherPlayerName() == null)
+            {
+               Dialogs.create().lightweight()
+                        .title("MasterMind - Dev by Filipe Torres")
+                        .masthead(null)
+                        .message("Aguarde seu adversário se conectar.")
+                        .showInformation();
+                event.consume();
+                return; 
+            }
+            
             if(this.chatTF.getText().length()>0){
                // this.appConn.send("chat:"+this.chatTF.getText());
                 String text = this.game.getMyName()+": "+this.appRmiConn.chatHelper.setMessage(this.chatTF.getText());
@@ -703,7 +734,7 @@ public class MainController implements Initializable, Observer {
                 this.appRmiConn.server_lookups();
                 this.game.setOtherPlayerName(chatObj.getOtherPlayerName());
                 this.playingWith.setText("Jogando com: "+this.game.getOtherPlayerName());
-                
+                this.showIsYourTurn();
             }else{
                 this.chatTA.appendText(this.game.getOtherPlayerName()+": "+chatObj.getMessage()+"\n");
             }

@@ -16,7 +16,7 @@
       </ImageView>
       <TextArea fx:id="chatTA" editable="false" layoutX="596.0" layoutY="32.0" opacity="0.7" prefHeight="508.0" prefWidth="201.0" wrapText="true" />
       <TextField fx:id="chatTF" layoutX="596.0" layoutY="539.0" onKeyPressed="#sendTextToChat" opacity="0.8" prefHeight="26.0" prefWidth="201.0" promptText="Para chat digite aqui" />
-      <Label fx:id="playingWith" layoutX="600.0" layoutY="9.0" text="Jogando contra: " textFill="WHITE" />
+      <Label fx:id="playingWith" layoutX="600.0" layoutY="9.0" text="Aguardando adversario..." textFill="WHITE" />
       <GridPane fx:id="myGrid1" alignment="BOTTOM_CENTER" layoutX="158.0" layoutY="513.0" onDragDropped="#gridSetOnDragDropped" onDragOver="#gridSetOnDragOver" prefHeight="44.0" prefWidth="290.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="73.0" />
@@ -296,6 +296,11 @@
       <ImageView fx:id="suaVez" fitHeight="27.0" fitWidth="108.0" layoutX="485.0" layoutY="542.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/suaVez.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hammer" fitHeight="33.0" fitWidth="59.0" layoutX="511.0" layoutY="308.0" onDragDetected="#bilharSetOnDragDetected" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@images/hammer.png" />
          </image>
       </ImageView>
    </children>
