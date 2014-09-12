@@ -578,12 +578,13 @@ public class MainController implements Initializable, Observer {
     }
     
     
-    public void sendTextToChat(KeyEvent event){
+    public void sendTextToChat(KeyEvent event) throws RemoteException{
         if(event.getCode() == KeyCode.ENTER)
         {
             if(this.chatTF.getText().length()>0){
-                this.appConn.send("chat:"+this.chatTF.getText());
-                this.chatTA.appendText(this.game.getMyName()+": "+this.chatTF.getText()+"\n");
+               // this.appConn.send("chat:"+this.chatTF.getText());
+                String text = this.game.getMyName()+": "+this.appRmiConn.chatHelper.setMessage(this.chatTF.getText());
+                this.chatTA.appendText(text+"\n");
                 this.chatTF.clear();
             }
         }
@@ -664,8 +665,25 @@ public class MainController implements Initializable, Observer {
     //@Override
     public void update(Observable o, Object arg) {
         //manageAllMsg(appConn.getMessage());
-        System.out.println("DEU CERTO KRALHO!");
-        System.out.println(this.appRmiConn.chatMets.getOtherPlayerName());
+        //System.out.println(this.appRmiConn.chatMets.getOtherPlayerName());
+        //System.out.println(arg);
+        if(arg instanceof ChatHelper)
+        {
+            System.out.println("CHAT!");
+            ChatHelper chatObj = (ChatHelper)arg;
+            if(this.game.getOtherPlayerName() == null)
+            {
+                this.appRmiConn.server_lookups();
+                this.game.setOtherPlayerName(chatObj.getOtherPlayerName());
+                this.playingWith.setText("Jogando com: "+this.game.getOtherPlayerName());
+                
+            }else{
+                this.chatTA.appendText(this.game.getOtherPlayerName()+": "+chatObj.getMessage()+"\n");
+            }
+        } else if(arg instanceof MainHelper)
+        {
+            
+        }
     }
     
 }

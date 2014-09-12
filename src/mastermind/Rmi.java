@@ -24,7 +24,7 @@ public class Rmi {
     private ItfHelper helper;
     private MainHelper mets;
     
-    private ItfChatHelper chatHelper;
+    public ItfChatHelper chatHelper;
     public ChatHelper chatMets;
     
     private MainModel refToGame;
@@ -59,6 +59,15 @@ public class Rmi {
     
     public boolean isIsServer() {
         return isServer;
+    }
+    
+    public void server_lookups(){
+        try{
+            this.helper = (ItfHelper)Naming.lookup("//"+this.ip+"/mastermind_rmi_2");
+            this.chatHelper = (ItfChatHelper)Naming.lookup("//"+this.ip+"/mastermind_rmi_chat2");
+        } catch (RemoteException | MalformedURLException | NotBoundException ex) {
+            Logger.getLogger(Rmi.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public String start(){

@@ -43,14 +43,14 @@ public class ChatHelper extends UnicastRemoteObject implements ItfChatHelper {
     @Override
     public String setPlayersName(String name) throws RemoteException {
         this.otherPlayerName = name;
-        this.teste.notifyTheController();
+        this.teste.notifyTheController(this);
         return this.myName;  
     }
 
     @Override
     public String setMessage(String msg) throws RemoteException {
         this.message = msg;
-        this.teste.notifyTheController();
+        this.teste.notifyTheController(this);
         return msg;
     }
 }

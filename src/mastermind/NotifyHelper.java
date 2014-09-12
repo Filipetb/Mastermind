@@ -7,6 +7,7 @@
 package mastermind;
 
 import java.util.Observable;
+import javafx.application.Platform;
 
 /**
  *
@@ -14,8 +15,23 @@ import java.util.Observable;
  */
 public class NotifyHelper extends Observable {
     
+    /**
+    * 
+    * @deprecated Passe o objeto como parametro!
+    */
+    @Deprecated
     public void notifyTheController(){
         setChanged();
         notifyObservers();
+    }
+    
+    public void notifyTheController(Object arg){
+        Platform.runLater(new Runnable() { //!importante para modificar a ui em javafx
+            @Override
+            public void run() {
+                setChanged();
+                notifyObservers(arg);
+            }
+        });
     }
 }
