@@ -13,5 +13,8 @@ import java.rmi.RemoteException;
  * @author filipe_bvr
  */
 public interface ItfHelper  extends Remote{
-    
+    void canStart() throws RemoteException;
+    void setResult(String res) throws RemoteException;
+    void setPass(String pass) throws RemoteException;
+    void disconnect() throws RemoteException;
 }

@@ -15,6 +15,8 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -132,6 +134,7 @@ public class MainController implements Initializable, Observer {
         
         try{ this.appRmiConn = new Rmi(dataSplited[1], this.game); }catch(RemoteException e){}
         this.appRmiConn.chatMets.teste.addObserver(this);
+        this.appRmiConn.mets.notH.addObserver(this);
         
         //É necessario setar o tamanho do array para 4(evitar nullpointerException e IndexOutOfBouds)
         this.bilharImgs.add(new ImageView());
@@ -199,7 +202,12 @@ public class MainController implements Initializable, Observer {
     }
 
     public void closeConnection(){
-        this.appConn.closeConn();
+        //avisar que esta se desconectando!
+        //this.appConn.closeConn();
+        try {
+            this.appRmiConn.helper.disconnect();
+        } catch (RemoteException ex) {
+        }
     }
 
     public void bilharSetOnDragDetected(MouseEvent event) {
@@ -444,8 +452,14 @@ public class MainController implements Initializable, Observer {
             if(this.game.getAttempt() == 1)
             {
                 if(this.game.checkCurPass()){
-                    this.appConn.send("CanStart");
-
+                    //this.appConn.send("CanStart");
+                    try {
+                        this.appRmiConn.helper.canStart();
+                        //this.appRmiConn.
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                     this.bilharB.setVisible(false);
                     this.bilharBw.setVisible(false);
                     this.bilharY.setVisible(false);
@@ -475,7 +489,10 @@ public class MainController implements Initializable, Observer {
                 //verifica se o jogo acabou
                 if(this.game.curResultToString().equals("2-2-2-2"))
                 {
-                    this.appConn.send("result:"+this.game.curResultToString()+":"+this.game.curPassToString());
+                    //this.appConn.send("result:"+this.game.curResultToString()+":"+this.game.curPassToString());
+                    try{
+                        this.appRmiConn.helper.setResult(this.game.curResultToString()+":"+this.game.curPassToString());
+                    } catch (RemoteException ex) {}
                     
                     this.isDialogPresent = true;
                     Dialogs.create().lightweight()
@@ -487,7 +504,10 @@ public class MainController implements Initializable, Observer {
                     System.exit(0);
                 }else if(this.game.getAttempt() > 11){
                     
-                    this.appConn.send("result:"+this.game.curResultToString()+":"+this.game.curPassToString());
+                    //this.appConn.send("result:"+this.game.curResultToString()+":"+this.game.curPassToString());
+                    try{
+                        this.appRmiConn.helper.setResult(this.game.curResultToString()+":"+this.game.curPassToString());
+                    } catch (RemoteException ex) {}
                     
                     this.isDialogPresent = true;
                     Dialogs.create().lightweight()
@@ -498,7 +518,10 @@ public class MainController implements Initializable, Observer {
                     
                     System.exit(0);
                 }else{
-                    this.appConn.send("result:"+this.game.curResultToString());
+                    //this.appConn.send("result:"+this.game.curResultToString());
+                    try{
+                        this.appRmiConn.helper.setResult(this.game.curResultToString());
+                    } catch (RemoteException ex) {}
                 }
                 
                 this.game.setCurResult(new int[4]);
@@ -508,7 +531,10 @@ public class MainController implements Initializable, Observer {
             if(this.game.checkCurPass()){
                 if(this.game.getAttempt() < 11)
                 {
-                    this.appConn.send("pass:"+this.game.curPassToString());
+                    //this.appConn.send("pass:"+this.game.curPassToString());
+                    try {
+                        this.appRmiConn.helper.setPass(this.game.curPassToString());
+                    } catch (RemoteException ex) {}
                 
                     this.game.setAttempt(this.game.getAttempt()+1);
                     this.game.setCurPass(new int[4]);
@@ -596,11 +622,12 @@ public class MainController implements Initializable, Observer {
         
         System.out.println("manage: "+msg);
         
-        if(msg.indexOf("chat:") == 0)
+        /*if(msg.indexOf("chat:") == 0)
         {
             dataMsg = msg.substring(5);
             this.chatTA.appendText(this.game.getOtherPlayerName()+": "+dataMsg+"\n");
-        }else if(msg.indexOf("pass:") == 0){
+        }else */
+        if(msg.indexOf("pass:") == 0){
             dataMsg = msg.substring(5);
             this.fillGrid(dataMsg);
             //this.chatTA.appendText("Mastermind: É sua vez.\n");
@@ -682,7 +709,9 @@ public class MainController implements Initializable, Observer {
             }
         } else if(arg instanceof MainHelper)
         {
-            
+            System.out.println("GAME!");
+            MainHelper mainObj = (MainHelper)arg;
+            this.manageAllMsg(mainObj.getMessage());
         }
     }
     

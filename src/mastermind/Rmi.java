@@ -21,8 +21,8 @@ public class Rmi {
     private int port;
     private final String ip;
     
-    private ItfHelper helper;
-    private MainHelper mets;
+    public ItfHelper helper;
+    public MainHelper mets;
     
     public ItfChatHelper chatHelper;
     public ChatHelper chatMets;
