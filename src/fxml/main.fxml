@@ -303,5 +303,10 @@
             <Image url="@images/hammer.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="setaL" fitHeight="27.0" fitWidth="31.0" layoutX="470.0" layoutY="537.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@images/seta.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

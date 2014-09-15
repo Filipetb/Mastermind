@@ -105,6 +105,8 @@ public class MainController implements Initializable, Observer {
     private ImageView suaVez;
     @FXML
     private ImageView hammer;
+    @FXML
+    private ImageView setaL;
     
     //Array que armazena as referencias das imgs dropped para serem removidas qnd necessarias
     private final List<ImageView> bilharImgs = new ArrayList<>();
@@ -117,11 +119,12 @@ public class MainController implements Initializable, Observer {
     
     private MainModel game;
     
-    private Conexao appConn;
+   // private Conexao appConn;
     //private Conexao chatConn;
     private Rmi appRmiConn;
     
     private boolean isDialogPresent = false; //evitar excessao e que a app se feche inesperadamente ao fim de jogo
+    private boolean isImageOnAnimation = false; //evitar que mais de um timer seja criado enquanto a seta faz a animação
          
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -336,6 +339,15 @@ public class MainController implements Initializable, Observer {
                     }
                     
                 }
+        }else{
+            if(!this.game.isChallenger()){
+                this.slideTheImage(11-this.game.getAttempt());
+            }else{
+                if(event.getGestureSource() != this.pinoB &&
+                   event.getGestureSource() != this.pinoP &&
+                   event.getGestureSource() != this.hammer)
+                    this.slideTheImage(0);
+            }
         }
                 
         
@@ -350,8 +362,9 @@ public class MainController implements Initializable, Observer {
     public void pinoOnDragDropped(DragEvent event) {
         boolean success = false;
         GridPane curGrid = (GridPane)event.getGestureTarget();
-        
-        if(  this.gridPinosLits.get(this.game.getAttempt()-2) == curGrid && this.game.isChallenger()  )
+        int itemList = this.game.getAttempt()-2;
+        if(itemList >= 0) //Evitar excessão(indexOutOfBounds), attempt = 1(valor inicial)
+        if(this.game.isChallenger() &&  this.gridPinosLits.get(itemList) == curGrid    )
         {
             Dragboard db = event.getDragboard();
             if (db.hasImage()) 
@@ -621,6 +634,48 @@ public class MainController implements Initializable, Observer {
             }
             
         },0, 500);
+    }
+    
+    public void slideTheImage(int pos){
+        if(this.isImageOnAnimation)
+            return; // Já tem uma animação em execução!
+        this.isImageOnAnimation = true;
+        
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask(){
+            Double graus = 0.0;
+            Double radianos;
+            Double yPos = 10.0;
+            boolean isYSet = false;
+            @Override
+            public void run() {
+                if(!isYSet)
+                {
+                    yPos += pos*51;
+                    isYSet = true;
+                }
+                radianos = Math.toRadians(graus);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        setaL.setLayoutY(yPos);
+                        setaL.setVisible(true);
+                        setaL.setLayoutX(setaL.getLayoutX() + (Math.sin(radianos)*2));
+                        
+                        
+                        if(graus > 719)
+                            setaL.setVisible(false);
+                    }
+                });
+                graus += 18;
+                if(graus > 720)
+                {
+                    isImageOnAnimation = false;
+                    timer.cancel();
+                }
+            }
+            
+        },0, 100);
     }
     
     
